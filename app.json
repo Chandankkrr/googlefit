@@ -1,0 +1,17 @@
+{
+  "name": "googlefit",
+  "displayName": "googlefit",
+  "expo": {
+    "name": "googlefit",
+    "slug": "googlefit",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
