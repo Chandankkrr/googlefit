@@ -1,56 +1,112 @@
-import React from "react";
-import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Dimensions, Animated } from "react-native";
+import Svg, { Circle, G } from "react-native-svg";
 
-const { width, height } = Dimensions.get("screen");
+const { width } = Dimensions.get("screen");
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const FitImage = () => {
+  const innerCircleRadius = 13;
+  const innerCircleFillPercentage = 35;
+  const innerCirclePerimeter = 2 * Math.PI * innerCircleRadius;
+  const innerCircleStrokeDashOffset =
+    innerCirclePerimeter -
+    (innerCirclePerimeter * innerCircleFillPercentage) / 100;
+
+  const outerCircleRadius = 18;
+  const outerCircleFillPercentage = 66;
+  const outerCirclePerimeter = 2 * Math.PI * outerCircleRadius;
+  const outerCircleStrokeDashOffset =
+    outerCirclePerimeter -
+    (outerCirclePerimeter * outerCircleFillPercentage) / 100;
+
+  const [innerCircleInitialFill] = useState(
+    new Animated.Value(innerCirclePerimeter)
+  );
+  const [outerCircleInitialFill] = useState(
+    new Animated.Value(outerCirclePerimeter)
+  );
+  const [springValue] = useState(new Animated.Value(1.3));
+
+  React.useEffect(() => {
+    Animated.timing(innerCircleInitialFill, {
+      toValue: innerCircleStrokeDashOffset,
+      duration: 3000
+    }).start();
+    Animated.timing(outerCircleInitialFill, {
+      toValue: outerCircleStrokeDashOffset,
+      duration: 3000
+    }).start();
+    Animated.spring(springValue, {
+      toValue: 1,
+      friction: 1
+    }).start();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={styles.fitHeartPointsContainer0}>
-      <View style={styles.fitHeartPointsContainer1}>
-      <View
-              style={{
-                position: "absolute",
-                top: 20,
-                right: 30,
-                width: 25,
-                height: 25,
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#03daae",
-              }}
-            >
-              <Text style={{fontSize: 18, transform: [{ rotate: '45deg'}]}}>
-                >>
-              </Text>
-            </View>
-        <View style={styles.fitMoveMinsContainer0}>
-          <View style={styles.fitMoveMinsContainer1}>
-            <View
-              style={{
-                position: "absolute",
-                bottom: 10,
-                right: 15,
-                width: 25,
-                height: 25,
-                borderRadius: 50,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#008cfd",
-               // marginRight: 10,
-              }}
-            >
-              <Text style={{fontSize: 18, transform: [{ rotate: '120deg'}]}}>
-                >
-              </Text>
-            </View>
-            <Image
-              source={require("../images/swat.png")}
-              style={styles.image}
+      <View>
+        <Svg
+          viewBox="0 0 55 55"
+          width={width}
+          height={width}
+          style={{
+            transform: [{ rotateZ: "-90deg" }]
+          }}
+        >
+          <G>
+            <Circle
+              cx="25"
+              cy="25"
+              r={outerCircleRadius}
+              fill="transparent"
+              stroke="#1f4a42"
+              strokeDasharray="1"
+              strokeWidth={0.5}
             />
-          </View>
-        </View>
+            <AnimatedCircle
+              cx="25"
+              cy="25"
+              r={outerCircleRadius}
+              fill="transparent"
+              stroke="#02ac8a"
+              strokeDasharray={outerCirclePerimeter}
+              strokeDashoffset={outerCircleInitialFill}
+            />
+            <Circle
+              cx="25"
+              cy="25"
+              r={innerCircleRadius}
+              fill="transparent"
+              stroke="#143c5b"
+              strokeDasharray="1"
+              strokeWidth={0.5}
+            />
+            <AnimatedCircle
+              cx="25"
+              cy="25"
+              r={innerCircleRadius}
+              fill="transparent"
+              stroke="#028cfe"
+              strokeDasharray={innerCirclePerimeter}
+              strokeDashoffset={innerCircleInitialFill}
+            />
+          </G>
+        </Svg>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            left: width / 3.6,
+            top: width / 2.7
+          }}
+        >
+          <Animated.Image
+            source={require("../images/swat.png")}
+            style={[styles.image, { transform: [{ scale: springValue }] }]}
+          />
         </View>
       </View>
     </View>
@@ -59,63 +115,11 @@ const FitImage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  fitHeartPointsContainer0: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: width * 0.75,
-    height: height * 0.35,
-    borderRadius: width * 0.5,
-    borderWidth: 4,
-    borderStyle: "dotted",
-    borderColor: "#19473e"
-  },
-  fitHeartPointsContainer1: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: width * 0.75,
-    height: height * 0.35,
-    borderRadius: width * 0.5,
-    //borderStyle: "dotted",
-    borderColor: "#03daae",
-    borderWidth: 10,
-    //borderStyle: "dotted",
-    position: "absolute",
-    borderLeftColor: "transparent",
-    borderRightColor: 'transparent',
-    borderBottomColor: "transparent",
-  },
-  fitMoveMinsContainer0: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: width * 0.55,
-    height: height * 0.25,
-    borderRadius: width * 0.5,
-    borderWidth: 4,
-    borderStyle: "dotted",
-    borderColor: "#153858"
-  },
-  fitMoveMinsContainer1: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: width * 0.55,
-    height: height * 0.25,
-    borderRadius: width * 0.5,
-    //borderStyle: "dotted",
-    borderColor: "#008cfd",
-    borderWidth: 10,
-    //borderStyle: "dotted",
-    position: "absolute",
-    borderLeftColor: "transparent",
-    borderBottomColor: "transparent",
-    top: -5
+    flex: 1
   },
   image: {
-    width: width * 0.35,
-    height: height * 0.15,
+    width: 140,
+    height: 140,
     borderRadius: width * 0.5
   }
 });
