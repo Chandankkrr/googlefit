@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-interface ExerciseStatProps {
+interface FitExerciseStatProps {
   quantity: string;
   type: string;
 }
 
-const ExerciseStat = (props: ExerciseStatProps) => {
+const FitExerciseStat = (props: FitExerciseStatProps) => {
   const { quantity, type } = props;
   return (
     <View
@@ -15,12 +15,12 @@ const ExerciseStat = (props: ExerciseStatProps) => {
         alignItems: "center"
       }}
     >
-      <Text style={{ color: "#ffffff", fontSize: 30, fontWeight: "500" }}>
+      <Text style={{ color: "#e9eaee", fontSize: 25, fontWeight: "500" }}>
         {quantity}
       </Text>
-      <Text style={{ color: "#707277", fontSize: 20 }}>{type}</Text>
+      <Text style={{ color: "#9fa0a5", fontSize: 20 }}>{type}</Text>
     </View>
   );
 };
 
-export default ExerciseStat;
+export default FitExerciseStat;

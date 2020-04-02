@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-interface HealthStatsProps {
+interface HealthStatProps {
   iconText: string;
   iconBackgroundColor: string;
   iconColor: string;
@@ -10,7 +10,7 @@ interface HealthStatsProps {
   type: string;
 }
 
-const HealthStats = (props: HealthStatsProps) => {
+const FitHealthStat = (props: HealthStatProps) => {
   const {
     iconText,
     iconBackgroundColor,
@@ -50,16 +50,16 @@ const HealthStats = (props: HealthStatsProps) => {
             alignItems: "flex-end"
           }}
         >
-          <Text style={{ color: "#ffffff", fontSize: 40, fontWeight: "600" }}>
+          <Text style={{ color: "#e9eaee", fontSize: 40, fontWeight: "600" }}>
             {actual}
           </Text>
-          <Text style={{ color: "#707277", fontSize: 20 }}>{over}</Text>
+          <Text style={{ color: "#9fa0a5", fontSize: 20 }}>{over}</Text>
         </View>
 
-        <Text style={{ color: "#707277", fontSize: 20 }}>{type}</Text>
+        <Text style={{ color: "#9fa0a5", fontSize: 20 }}>{type}</Text>
       </View>
     </View>
   );
 };
 
-export default HealthStats;
+export default FitHealthStat;

@@ -1,19 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
+import Constants from 'expo-constants';
+import GoogleFit from "./GoogleFit";
 
-export default function App() {
+const { height } = Dimensions.get('screen');
+
+const App = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <ScrollView
+      contentContainerStyle={{minHeight: height}}
+       style={{flex:1, top: Constants.statusBarHeight}}>
+        <GoogleFit />
+      </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#1f2026"
   },
 });
+
+export default App;

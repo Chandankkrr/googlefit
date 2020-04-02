@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+/ios
 
 # Android/IntelliJ
 #
@@ -57,3 +58,5 @@ buck-out/
 
 # Expo
 .expo/*
+
+/lib
