@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Dimensions } from "react-native";
+import { Text, View, Dimensions, ScrollView } from "react-native";
 import FitImage from "./components/FitImage";
 import FitHealthStat from "./components/FitHealthStat";
 import FitExerciseStat from "./components/FitExerciseStat";
@@ -9,7 +9,7 @@ const { width } = Dimensions.get("screen");
 
 const GoogleFit = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#1f2026" }}>
       <View style={{ flex: 1 }}>
         <FitImage />
       </View>
@@ -68,7 +68,7 @@ const GoogleFit = () => {
       <View style={{ flex: 1 }}>
         <FitSleepChart />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
