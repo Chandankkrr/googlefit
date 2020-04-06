@@ -2,25 +2,33 @@ import React from "react";
 import { View, Dimensions, Text } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 
-const data = {
-  labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  datasets: [
-    {
-      data: [9, 6, 6.5, 8, 6, 7, 9]
-    }
-  ]
-};
+interface FitDataSets {
+  data: number[];
+}
 
-const FitSleepChart = () => {
+interface FitChartData {
+  labels: string[];
+  datasets: FitDataSets[]
+}
+
+interface FitChartProps{
+  data: FitChartData;
+  title: string;
+  description?: string;
+  baseline: number;
+}
+
+const FitChart = (props: FitChartProps) => {
+  const {data, title, description, baseline } = props;
   return (
-    <View>
+    <View style={{flex: 1}}>
       <View style={{ paddingLeft: 20 }}>
-        <Text style={{ color: "#e6e7ec", fontSize: 25, fontWeight: "500", marginBottom: 5 }}>
-          Sleep
+        <Text style={{ color: "#e6e7ec", fontSize: 20, fontWeight: "500", marginBottom: 5 }}>
+          {title}
         </Text>
-        <Text style={{ color: "#707277", fontSize: 15 }}>
-          7h 48m • Yesterday
-        </Text>
+        {description && (<Text style={{ color: "#9a9ba1", fontSize: 15, marginBottom: 20 }}>
+          {description}
+        </Text>)}
       </View>
       <View>
         <BarChart
@@ -39,16 +47,17 @@ const FitSleepChart = () => {
             backgroundGradientTo: "#1f2026",
             fillShadowGradient: "#7262f8",
             fillShadowGradientOpacity: 1,
-            color: (opacity = 1) => `rgba(${112}, ${98}, ${247}, ${opacity})`,
+            color: (opacity = 1) => `rgba(${154}, ${155}, ${161}, ${opacity})`,
             labelColor: (opacity = 1) =>
-              `rgba(${76}, ${78}, ${83}, ${opacity})`,
+              `rgba(${154}, ${155}, ${161}, ${opacity})`,
             style: {
               borderRadius: 16,
               right: 0,
               paddingRight: 64
             },
             barPercentage: 0.5,
-            barRadius: 10
+            decimalPlaces: 0,
+            baseline: baseline
           }}
           showBarTops={false}
           fromZero
@@ -58,4 +67,4 @@ const FitSleepChart = () => {
   );
 };
 
-export default FitSleepChart;
+export default FitChart;

@@ -1,33 +1,34 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Dimensions, Animated, Easing } from "react-native";
+import { StyleSheet, View, Dimensions, Animated } from "react-native";
 import Svg, {
   Circle,
   G,
   Defs,
   Marker,
   Path,
-  MarkerUnits,
-  SvgXml,
 } from "react-native-svg";
 
-const { width } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("screen");
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
+const AnimatedMarker = Animated.createAnimatedComponent(Marker);
+
 const FitImage = () => {
   const innerCircleRadius = 13;
-  const innerCircleFillPercentage = 65;
+  const innerCircleFillPercentage = 75;
   const innerCirclePerimeter = 2 * Math.PI * innerCircleRadius;
   const innerCircleStrokeDashOffset =
     innerCirclePerimeter -
     (innerCirclePerimeter * innerCircleFillPercentage) / 100;
 
   const outerCircleRadius = 18;
-  const outerCircleFillPercentage = 85;
+  const outerCircleFillPercentage = 35;
   const outerCirclePerimeter = 2 * Math.PI * outerCircleRadius;
   const outerCircleStrokeDashOffset =
     outerCirclePerimeter -
     (outerCirclePerimeter * outerCircleFillPercentage) / 100;
+  
   const [springValue] = useState(new Animated.Value(1.3));
 
   const [innerCircleInitialFill] = useState(
@@ -56,13 +57,30 @@ const FitImage = () => {
     <View style={styles.container}>
       <View>
         <Svg
-          viewBox="0 0 55 55"
+          viewBox={`0 0 50 50`}
           width={width}
-          height={width}
+          height={height / 2.5}
           style={{
             transform: [{ rotateZ: "-90deg" }],
           }}
         >
+          <Defs>
+            <AnimatedMarker
+              id="m1"
+              viewBox="0 0 10 10"
+              refX={10}
+              refY={10}
+              markerWidth="2"
+              markerHeight="2"
+            >
+              <Path
+                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 7.58l5.995 5.988-1.416 1.414-4.579-4.574-4.59 4.574-1.416-1.414 6.006-5.988z"
+                strokeWidth="2"
+                fill="white"
+                transform={{translateX: "-90deg"}}
+              />
+            </AnimatedMarker>
+          </Defs>
           <G>
             <Circle
               cx="25"
@@ -106,17 +124,18 @@ const FitImage = () => {
         </Svg>
         <View
           style={{
+            position: "absolute",
             justifyContent: "center",
             alignItems: "center",
-            position: "absolute",
-            left: width / 3.6,
-            top: width / 2.7,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
           }}
         >
           <Animated.Image
             source={require("../images/swat.png")}
-            style={[styles.image, 
-              { transform: [{ scale: springValue }] }]}
+            style={[styles.image, { transform: [{ scale: springValue }] }]}
           />
         </View>
       </View>
@@ -127,6 +146,8 @@ const FitImage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: 140,
