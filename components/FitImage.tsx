@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Dimensions, Animated } from "react-native";
-import Svg, {
-  Circle,
-  G,
-  Defs,
-  Marker,
-  Path,
-} from "react-native-svg";
+import Svg, { Circle, G, Marker } from "react-native-svg";
 
 const { width, height } = Dimensions.get("screen");
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
-const AnimatedMarker = Animated.createAnimatedComponent(Marker);
 
 const FitImage = () => {
   const innerCircleRadius = 13;
@@ -28,7 +20,7 @@ const FitImage = () => {
   const outerCircleStrokeDashOffset =
     outerCirclePerimeter -
     (outerCirclePerimeter * outerCircleFillPercentage) / 100;
-  
+
   const [springValue] = useState(new Animated.Value(1.3));
 
   const [innerCircleInitialFill] = useState(
@@ -64,23 +56,6 @@ const FitImage = () => {
             transform: [{ rotateZ: "-90deg" }],
           }}
         >
-          <Defs>
-            <AnimatedMarker
-              id="m1"
-              viewBox="0 0 10 10"
-              refX={10}
-              refY={10}
-              markerWidth="2"
-              markerHeight="2"
-            >
-              <Path
-                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 7.58l5.995 5.988-1.416 1.414-4.579-4.574-4.59 4.574-1.416-1.414 6.006-5.988z"
-                strokeWidth="2"
-                fill="white"
-                transform={{translateX: "-90deg"}}
-              />
-            </AnimatedMarker>
-          </Defs>
           <G>
             <Circle
               cx="25"
@@ -100,7 +75,7 @@ const FitImage = () => {
               stroke="#02ac8a"
               strokeDasharray={outerCirclePerimeter}
               strokeDashoffset={outerCircleInitialFill}
-              markerStart="url(#m1)"
+              strokeLinecap={"round"}
             />
             <Circle
               cx="25"
@@ -119,6 +94,7 @@ const FitImage = () => {
               stroke="#028cfe"
               strokeDasharray={innerCirclePerimeter}
               strokeDashoffset={innerCircleInitialFill}
+              strokeLinecap={"round"}
             />
           </G>
         </Svg>
