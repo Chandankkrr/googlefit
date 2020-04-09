@@ -3,7 +3,7 @@ import { Text, View, Dimensions, ScrollView } from "react-native";
 import FitImage from "./components/FitImage";
 import FitHealthStat from "./components/FitHealthStat";
 import FitExerciseStat from "./components/FitExerciseStat";
-import FitChart from "./components/FitSleepChart";
+import FitChart from "./components/FitChart";
 import AdditionalStats from "./components/AdditionalStats";
 
 const { width } = Dimensions.get("screen");
@@ -40,8 +40,6 @@ const GoogleFit = () => {
           marginLeft: width * 0.15,
           marginRight: width * 0.15,
           marginBottom: width * 0.05,
-          // borderColor: "white",
-          // borderWidth: 1,
         }}
       >
         <FitHealthStat

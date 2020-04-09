@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Dimensions, Animated } from "react-native";
-import Svg, { Circle, G, Marker } from "react-native-svg";
+import Svg, { Circle, G } from "react-native-svg";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -31,18 +31,20 @@ const FitImage = () => {
   );
 
   React.useEffect(() => {
-    Animated.timing(innerCircleInitialFill, {
-      toValue: innerCircleStrokeDashOffset,
-      duration: 2000,
-    }).start();
-    Animated.timing(outerCircleInitialFill, {
-      toValue: outerCircleStrokeDashOffset,
-      duration: 2000,
-    }).start();
-    Animated.spring(springValue, {
-      toValue: 1,
-      friction: 1,
-    }).start();
+    Animated.parallel([
+      Animated.timing(innerCircleInitialFill, {
+        toValue: innerCircleStrokeDashOffset,
+        duration: 1000,
+      }),
+      Animated.timing(outerCircleInitialFill, {
+        toValue: outerCircleStrokeDashOffset,
+        duration: 2000,
+      }),
+      Animated.spring(springValue, {
+        toValue: 1,
+        friction: 1,
+      })
+    ]).start()
   }, []);
 
   return (

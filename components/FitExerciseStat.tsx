@@ -12,7 +12,7 @@ const FitExerciseStat = (props: FitExerciseStatProps) => {
     <View
       style={{
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <Text style={{ color: "#8eb6e6", fontSize: 23, fontWeight: "500" }}>
