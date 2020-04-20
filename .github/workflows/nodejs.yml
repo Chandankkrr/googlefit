@@ -29,6 +29,6 @@ jobs:
     - run: npm i -g expo-cli
     - run: npm ci
     - run: expo login -u chandankkrr -p ${{secrets.expo_password}}
-    - run: npm run publish
+    - run: expo publish
       env:
         CI: true
